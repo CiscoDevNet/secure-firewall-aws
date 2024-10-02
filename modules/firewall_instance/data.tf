@@ -25,7 +25,7 @@ data "template_file" "ftd_startup_file" {
   count    = var.instances_per_az * var.availability_zone_count
   template = file("${path.module}/ftd_startup_file.txt")
   vars = {
-    fmc_ip     = var.fmc_mgmt_ip
+    fmc_ip     = aws_instance.fmcv[0].private_ip
     fmc_nat_id = var.fmc_nat_id
     reg_key    = var.reg_key
     ftd_admin_password = var.ftd_admin_password

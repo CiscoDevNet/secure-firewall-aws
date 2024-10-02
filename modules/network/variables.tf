@@ -218,8 +218,14 @@ variable "use_fmc_eip" {
   default     = false
 }
 
+variable "use_outside_eip" {
+  description = "boolean value to use EIP on FTD outside interface or not"
+  type        = bool
+  default     = false
+}
+
 variable "rta" {
-  description = "Route table association for the outside subnet"
+  description = "Route table creation and association for the data interface subnets"
   type = bool
   default = true
 }
