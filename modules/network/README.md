@@ -47,7 +47,7 @@ No Modules.
 | <a name="input_create_igw"></a> [create\_igw](#input\_create\_igw) | Condition to create IGW . | `bool` | `false` | no |
 | <a name="input_igw_name"></a> [igw\_name](#input\_igw\_name) | name of existing IGW to be used | `string` | `""` | no |
 | <a name="input_availability_zone_count"></a> [availability\_zone\_count](#input\_availability\_zone\_count) | Specified availablity zone count . | `number` | `2` | no |
-| <a name="input_instances_per_az"></a> [instances\_per\_az](#input\_instances\_per\_az) | Spacified no. of instance per az wants to be create . | `number` | `1` | no |
+| <a name="input_instances_per_az"></a> [instances\_per\_az](#input\_instances\_per\_az) | Specified no. of instance per az wants to be create . | `number` | `1` | no |
 | <a name="input_mgmt_subnet_cidr"></a> [mgmt\_subnet\_cidr](#input\_mgmt\_subnet\_cidr) | List out management Subnet CIDR . | `list(string)` | `[]` | no |
 | <a name="input_ftd_mgmt_ip"></a> [ftd\_mgmt\_ip](#input\_ftd\_mgmt\_ip) | List out management IPs . | `list(string)` | `[]` | no |
 | <a name="input_outside_subnet_cidr"></a> [outside\_subnet\_cidr](#input\_outside\_subnet\_cidr) | List out outside Subnet CIDR . | `list(string)` | `[]` | no |
@@ -72,6 +72,8 @@ No Modules.
 | <a name="input_fmc_mgmt_interface_sg"></a> [fmc\_mgmt\_interface\_sg](#input\_fmc\_mgmt\_interface\_sg) | Can be specified multiple times for each ingress rule. | <pre>list(object({<br>    from_port   = number<br>    protocol    = string<br>    to_port     = number<br>    cidr_blocks = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": "-1",<br>    "to_port": 0<br>  }<br>]</pre> | no |
 | <a name="input_use_ftd_eip"></a> [use\_ftd\_eip](#input\_use\_ftd\_eip) | boolean value to use EIP on FTD or not | `bool` | `false` | no |
 | <a name="input_use_fmc_eip"></a> [use\_fmc\_eip](#input\_use\_fmc\_eip) | boolean value to use EIP on FMC or not | `bool` | `false` | no |
+| <a name="input_use_outside_eip"></a> [use\_outside\_eip](#input\_use\_outside\_eip) | boolean value to use EIP on FTD outside interface or not | `bool` | `false` | no |
+| <a name="input_rta"></a> [rta](#input\_rta) | route table creation and association for the data interface subnets | `bool` | `true` | no |
 
 Note: In this build using existing interface resources are not supported. New interfaces will be created.
 
@@ -96,6 +98,9 @@ Note: In this build using existing interface resources are not supported. New in
 | <a name="output_fmc_interface_ip"></a> [fmc\_interface\_ip](#output\_fmc\_interface\_ip) | FMC Interface IP |
 | <a name="output_internet_gateway"></a> [internet\_gateway](#output\_internet\_gateway) | Internet Gateway ID |
 | <a name="output_mgmt_rt_id"></a> [mgmt\_rt\_id](#output\_mgmt\_rt\_id) | Mgmt subnet Route table ID |
+| <a name="output_aws_ftd_eip"></a> [aws\_ftd\_eip](#output\_aws\_ftd\_eip) | FTD mgmt interface public IP address |
+| <a name="output_aws_outside_eip"></a> [aws\_outside\_eip](#output\_aws\_outside\_eip) | FTD outside interface public IP address |
+
 
 
 

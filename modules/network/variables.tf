@@ -225,7 +225,7 @@ variable "use_outside_eip" {
 }
 
 variable "rta" {
-  description = "Route table creation and association for the data interface subnets"
+  description = "route table creation and association for the data interface subnets"
   type = bool
   default = true
 }
