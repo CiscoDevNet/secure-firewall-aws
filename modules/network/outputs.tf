@@ -102,5 +102,11 @@ output "mgmt_rt_id" {
 }
 
 output "aws_ftd_eip" {
+  description = "FTD mgmt interface public IP address"
   value = aws_eip.ftd_mgmt_eip.*.public_ip
+}
+
+output "aws_outside_eip" {
+  description = "FTD outside interface public IP address"
+  value = aws_eip.ftd_outside_eip.*.public_ip
 }

@@ -312,7 +312,7 @@ resource "aws_route_table" "ftd_mgmt_route" {
 }
 
 resource "aws_route_table" "ftd_outside_route" {
-  count  = length(local.outside_subnet)
+  count  = var.rta ? length(local.outside_subnet) : 0
   vpc_id = local.con
   tags = merge({
     Name = "outside network Routing table"
@@ -320,7 +320,7 @@ resource "aws_route_table" "ftd_outside_route" {
 }
 
 resource "aws_route_table" "ftd_inside_route" {
-  count  = length(local.inside_subnet)
+  count  = var.rta ? length(local.inside_subnet) : 0
   vpc_id = local.con
   tags = merge({
     Name = "inside network Routing table"
@@ -328,7 +328,7 @@ resource "aws_route_table" "ftd_inside_route" {
 }
 
 resource "aws_route_table" "ftd_diag_route" {
-  count  = length(local.diag_subnet)
+  count  = var.rta ? length(local.diag_subnet) : 0
   vpc_id = local.con
   tags = merge({
     Name = "diag network Routing table"
@@ -348,13 +348,13 @@ resource "aws_route_table_association" "mgmt_association" {
 }
 
 resource "aws_route_table_association" "inside_association" {
-  count          = length(local.inside_subnet)
+  count          = var.rta ? length(local.inside_subnet) : 0
   subnet_id      = local.inside_subnet[count.index].id
   route_table_id = aws_route_table.ftd_inside_route[count.index].id
 }
 
 resource "aws_route_table_association" "diag_association" {
-  count          = length(local.diag_subnet)
+  count          = var.rta ? length(local.diag_subnet) : 0
   subnet_id      = local.diag_subnet[count.index].id
   route_table_id = aws_route_table.ftd_diag_route[count.index].id
 }
@@ -365,7 +365,7 @@ resource "aws_route_table_association" "diag_association" {
 
 resource "aws_eip" "ftd_mgmt_eip" {
   count = var.use_ftd_eip ? length(var.mgmt_subnet_name) : 0
-  vpc   = true
+  domain = "vpc"
   tags = merge({
     "Name" = "ftd-${count.index} Management IP"
   }, var.tags)
@@ -379,7 +379,7 @@ resource "aws_eip_association" "ftd_mgmt_ip_assocation" {
 
 resource "aws_eip" "fmcmgmt_eip" {
   count = var.use_fmc_eip ? 1 : 0
-  vpc   = true
+  domain = "vpc"
   tags = {
     "Name" = "FMCv Management IP"
   }
@@ -389,4 +389,22 @@ resource "aws_eip_association" "fmc_mgmt_ip_assocation" {
   count                = var.use_fmc_eip ? 1 : 0
   network_interface_id = aws_network_interface.fmcmgmt[0].id
   allocation_id        = aws_eip.fmcmgmt_eip[0].id
+}
+
+# # ##################################################################################################################################
+# # # AWS External IP address creation and associating it to the FTD outside interface. 
+# # ##################################################################################################################################
+
+resource "aws_eip" "ftd_outside_eip" {
+  count = var.use_outside_eip ? length(var.outside_subnet_name) : 0
+  domain = "vpc"
+  tags = merge({
+    "Name" = "ftd-${count.index} outside IP"
+  }, var.tags)
+}
+
+resource "aws_eip_association" "ftd_outside_ip_assocation" {
+  count                = length(aws_eip.ftd_outside_eip)
+  network_interface_id = aws_network_interface.ftd_outside[count.index].id
+  allocation_id        = aws_eip.ftd_outside_eip[count.index].id
 }

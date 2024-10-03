@@ -35,7 +35,7 @@ No modules
 | <a name="input_create_fmc"></a> [create\_fmc](#input\_create\_fmc) | Boolean value to create FMC or not | `bool` | true | no |
 | <a name="input_fmc_version"></a> [fmc_\_version](#input\_fmc\_version) | specified FMC version | `string` | n/a | yes |
 | <a name="input_keyname"></a> [keyname](#input\_keyname) | specified key pair name to connect firewall | `string` | n/a | yes |
-| <a name="instances_per_az"></a> [instances\_per\_az] (#input\_instances\_per\_az) | Spacified no. of instance per az wants to be create | number | 1 | no |
+| <a name="instances_per_az"></a> [instances\_per\_az] (#input\_instances\_per\_az) | specified no. of instance per az wants to be create | number | 1 | no |
 | <a name="input_availability_zone_count"></a> [availability\_zone\_count](#input\_availability\_zone\_count) | Spacified availablity zone count . | `number` | `2` | no |
 | <a name="ftd_size"></a> [ftd\_size](#input\_ftd\_size) | specified server instance type | `string` | `c5.4xlarge` | no |
 | <a name="input_fmc_mgmt_ip"></a> [fmc\_mgmt\_ip](#input\_fmc\_mgmt\_ip) | specified fmc management IPs | `string` | `""` | no |
